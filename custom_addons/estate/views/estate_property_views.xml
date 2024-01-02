@@ -1,0 +1,106 @@
+<!--estate_property_views.xml-->
+<odoo>
+    <data>
+    <!-- 定义模型的搜索视图 -->
+        <record id="view_estate_property_search" model="ir.ui.view">
+            <field name="name">estate.property.search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string="Estate Property">
+                    <!-- 在这里添加你的搜索字段 -->
+                    <field name="name" string="Property Name" />
+                    <field name="description" string="Description" />
+                    <field name="price" string="Price" />
+                    <field name="postcode" string="Postcode" />
+
+                    <!-- 添加过滤器 -->
+                    <filter string="Active Properties" name="active_properties" domain="[('active', '=', True)]"/>
+                    <!-- 添加分组标签 -->
+                    <group expand="0" string="Group By">
+                        <filter string="By Bedrooms" name="bedrooms" context="{'group_by':'bedrooms'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- 定義模型的檢視 - 清單視圖 -->
+        <record id="view_estate_property_tree" model="ir.ui.view">
+            <field name="name">estate.property.tree</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="price"/>
+                    <field name="postcode"/>
+                    <!-- 其他字段 -->
+                </tree>
+            </field>
+        </record>
+        <!-- 定義模型的檢視 -->
+        <record id="view_estate_property_form" model="ir.ui.view">
+            <field name="name">estate.property.form</field>
+            
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <!-- 在這裡定義你的模型視圖結構 -->
+                <!-- 例如： -->
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                            <field name="name"/>                           
+                            <field name="description"/>
+                            </group>
+                            <group>
+                            <field name="price"/>
+                            <field name="postcode"/>
+                            </group>
+                        </group>
+                        
+                        <!-- 其他字段 -->
+                        
+                        <notebook>
+                            <page string="Description">
+                            <group>
+                            <field name="description"/>
+                            
+                            <field name="date_availability"/>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="facades"/>
+                            <field name="garage"/>
+                            <field name="garden"/>
+                            <field name="garden_area"/>
+                            <field name="garden_orientation"/>
+                            <field name="garden_orientation"/>
+                            <field name="availability_date"/>.
+                            </group>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- 定義模型的訪問權限 -->
+        <record id="access_estate_property" model="ir.model.access">
+            <field name="name">Access Estate Property</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <!-- 新增的動作定義 -->
+        <record id="test_model_action" model="ir.actions.act_window">
+            <field name="name">新增刀具</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</odoo>

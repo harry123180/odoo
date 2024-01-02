@@ -1,0 +1,17 @@
+<!--clicker_systray_view.xml-->
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <templates>
+            <t t-name="ClickerSystrayItemTemplate">
+                <!-- 此处定义了用于显示在系统托盘的模板 -->
+                <div class="js_clicker_systray">
+                    <span class="js_clicker_count">0</span> <!-- 显示点击次数 -->
+                    <button type="button" class="js_clicker_increment">点击我</button> <!-- 按钮用于增加计数 -->
+                </div>
+            </t>
+        </templates>
+
+    </data>
+</odoo>

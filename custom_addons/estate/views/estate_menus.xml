@@ -1,0 +1,17 @@
+<!--estate_menus.xml-->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Add your menu items here -->
+        <menuitem id="test_menu_root" name="刀具管理">
+            <menuitem id="test_first_level_menu" name="倉庫">
+                <menuitem id="test_model_menu_action" action="test_model_action"/>
+                
+            </menuitem>
+        </menuitem>
+
+        <!-- Add more menu items as needed -->
+
+    </data>
+</odoo>

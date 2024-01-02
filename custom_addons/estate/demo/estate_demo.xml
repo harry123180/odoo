@@ -1,0 +1,20 @@
+<!--estate_demo.xml-->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Add your demo records here -->
+        <record id="demo_property_1" model="estate.property">
+            <field name="name">Demo Property 1</field>
+            <!-- Add other fields as needed -->
+        </record>
+
+        <record id="demo_property_2" model="estate.property">
+            <field name="name">Demo Property 2</field>
+            <!-- Add other fields as needed -->
+        </record>
+
+        <!-- Add more records as needed -->
+
+    </data>
+</odoo>
