@@ -1,0 +1,45 @@
+<odoo>
+<!--estate_property_tag_views.xml-->
+    <data>
+    <!--新增選項-->
+        <record id="view_estate_property_tag_form" model="ir.ui.view">
+            <field name="name">estate.property.type.form</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <form string="Property Type">
+                    <sheet>
+                        <group>
+                            <field name="name" string="Tag Name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Property Tag Access Rights -->
+        <record id="access_estate_property_tag" model="ir.model.access">
+            <field name="name">estate.property.tag.access</field>
+            <field name="model_id" ref="model_estate_property_tag"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Property Tag Action -->
+        <record id="property_tag_action" model="ir.actions.act_window">
+            <field name="name">Property Tags</field>
+            <field name="res_model">estate.property.tag</field>
+            <field name="view_mode">tree,form</field>
+            <!-- Note: You need to create and reference the actual view for tags -->
+            <field name="view_id" ref="view_estate_property_tag_form"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Manage the Property Tags
+                </p>
+            </field>
+        </record>
+        
+        
+    </data>
+</odoo>

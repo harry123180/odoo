@@ -1,5 +1,5 @@
-<!--estate_property_views.xml-->
 <odoo>
+<!--estate_property_views.xml-->
     <data>
     <!-- 定义模型的搜索视图 -->
         <record id="view_estate_property_search" model="ir.ui.view">
@@ -14,7 +14,7 @@
                     <field name="postcode" string="Postcode" />
 
                     <!-- 添加过滤器 -->
-                    <filter string="Active Properties" name="active_properties" domain="[('active', '=', True)]"/>
+                    <filter string="Active Properties" name="active_properties" domain="[('name', '=', True)]"/>
                     <!-- 添加分组标签 -->
                     <group expand="0" string="Group By">
                         <filter string="By Bedrooms" name="bedrooms" context="{'group_by':'bedrooms'}"/>
@@ -24,12 +24,15 @@
         </record>
         <!-- 定義模型的檢視 - 清單視圖 -->
         <record id="view_estate_property_tree" model="ir.ui.view">
+            
             <field name="name">estate.property.tree</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree>
+                    
                     <field name="name"/>
                     <field name="description"/>
+
                     <field name="price"/>
                     <field name="postcode"/>
                     <!-- 其他字段 -->
@@ -45,15 +48,25 @@
                 <!-- 在這裡定義你的模型視圖結構 -->
                 <!-- 例如： -->
                 <form>
+                    <header>
+                        <button string="Sold" type="object" name="action_sold" class="oe_highlight"/>
+
+                        <button string="CANCEL"  class="btn-primary"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
                             <field name="name"/>                           
                             <field name="description"/>
+                            <field name="selling_state"/>
                             </group>
                             <group>
                             <field name="price"/>
                             <field name="postcode"/>
+                            </group>
+                            <group>
+                                <!-- ... 其他字段 ... -->
+                                <field name="tag_ids" widget="many2many_tags"/>
                             </group>
                         </group>
                         
@@ -61,24 +74,29 @@
                         
                         <notebook>
                             <page string="Description">
-                            <group>
-                            <field name="description"/>
-                            
-                            <field name="date_availability"/>
-                            <field name="expected_price"/>
-                            <field name="selling_price"/>
-                            <field name="bedrooms"/>
-                            <field name="living_area"/>
-                            <field name="facades"/>
-                            <field name="garage"/>
-                            <field name="garden"/>
-                            <field name="garden_area"/>
-                            <field name="garden_orientation"/>
-                            <field name="garden_orientation"/>
-                            <field name="availability_date"/>.
-                            </group>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="date_availability"/>
+                                    <field name="expected_price"/>
+                                    <field name="selling_price"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                    <field name="garden"/>
+                                    <field name="garden_area"/>
+                                    <field name="garden_orientation"/>
+                                    <field name="garden_orientation"/>
+                                    <field name="availability_date"/>
+                                </group>
                             </page>
-                            
+                            <page string="Sales">
+                                <group>
+                                    <field name="property_type_id"/>
+                                    <field name="salesman_id"/>
+                                    <field name="buyer_id"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -101,6 +119,8 @@
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
+        
+        
         
     </data>
 </odoo>

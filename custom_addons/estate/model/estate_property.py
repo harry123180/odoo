@@ -5,7 +5,14 @@ from datetime import timedelta
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Estate Property'
+    selling_state = fields.Char(string='Status',readonly=True)
 
+    #新增Many2one 字段
+    property_type_id = fields.Many2one('estate.property.type', string="Property Type")
+    salesman_id = fields.Many2one('res.users', string="Salesman")
+    buyer_id = fields.Many2one('res.partner', string="Buyer")
+    #新增Many2Many 字段
+    tag_ids = fields.Many2many('estate.property.tag', string="Tags")
     name = fields.Char(string='刀具名稱')
     description = fields.Text(string='描述')
     postcode = fields.Char(string='型號')
@@ -25,7 +32,30 @@ class EstateProperty(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique(name)', 'Property name must be unique.'),
     ]
+    def action_sold(self):
+        # 在這裡實現將房產設為已售的邏輯
+        self.selling_state = "selled"
+        print("SOLD has be press changes")
+        if(self.selling_state !="selled"):
+            return True
+        else:
+            print("警告 警告")
+            return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': '警告',
+                'message': '這是警告訊息。',
+                'type': 'warning',  # 設置彈窗類型為警告
+                'sticky': False,  # 彈窗是否持續顯示
+            },
+        }
+            
 
+    def action_cancel(self):
+        # 在這裡實現取消房產的邏輯
+        print("CANCEL has be press")
+        return True
     # 在複製時不複製的字段
     def copy(self, default=None):
         default = dict(default or {})
@@ -34,3 +64,14 @@ class EstateProperty(models.Model):
             'availability_date': False,  # 複製時不複製可用日期
         })
         return super(EstateProperty, self).copy(default)
+class EstatePropertyType(models.Model):
+    _name = 'estate.property.type'
+    _description = 'Estate Property Type'
+
+    name = fields.Char(string='Type Name')
+class EstatePropertyTag(models.Model):
+    _name = 'estate.property.tag'
+    _description = 'Estate Property Tag'
+
+    name = fields.Char(string="Name")
+  
